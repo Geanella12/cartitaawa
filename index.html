@@ -57,4 +57,232 @@
     inset:0;
     background: linear-gradient(160deg, #d9a441, #b8792a);
     border-radius:6px;
-    box-shadow: 0 18px 30px
+    box-shadow: 0 18px 30px var(--sombra);
+  }
+  .sobre-solapa{
+    position:absolute;
+    top:0; left:0; right:0;
+    height:100px;
+    background: linear-gradient(160deg, #e6b95c, #c98a34);
+    clip-path: polygon(0 0, 100% 0, 50% 78%);
+    transform-origin: top center;
+    transition: transform .6s cubic-bezier(.6,-0.3,.2,1.4);
+    border-radius:6px 6px 0 0;
+    z-index:3;
+  }
+  .sello{
+    position:absolute;
+    top:58px; left:50%;
+    width:46px; height:46px;
+    background: radial-gradient(circle at 35% 30%, #d1594c, var(--sello) 70%);
+    border-radius:50%;
+    transform: translateX(-50%);
+    box-shadow: 0 3px 6px rgba(0,0,0,.4);
+    display:flex;align-items:center;justify-content:center;
+    color:#f3e3b3;font-weight:bold;font-size:0.85rem;
+    z-index:4;
+    transition: opacity .3s ease;
+  }
+  .instr{
+    color:#f3e3b3cc;
+    font-size:0.9rem;
+    text-align:center;
+  }
+
+  .sobre.abierto .sobre-solapa{
+    transform: rotateX(180deg);
+    z-index:1;
+  }
+  .sobre.abierto .sello{ opacity:0; }
+
+  /* CARTA */
+  .carta-wrap{
+    display:none;
+    width:100%;
+    max-width:560px;
+    animation: aparecer .7s ease forwards;
+  }
+  .carta-wrap.visible{ display:block; }
+  @keyframes aparecer{
+    from{ opacity:0; transform: translateY(30px) scale(.95); }
+    to{ opacity:1; transform: translateY(0) scale(1); }
+  }
+
+  .hoja{
+    position:relative;
+    background:
+      repeating-linear-gradient(var(--papel), var(--papel) 27px, var(--papel-oscuro) 28px),
+      var(--papel);
+    border-radius:4px 18px 4px 18px / 18px 4px 18px 4px;
+    padding:34px 32px 26px 40px;
+    box-shadow: 0 25px 45px var(--sombra);
+    color: var(--tinta);
+    line-height:1.9;
+    font-size:1.15rem;
+    transform: rotate(-1deg);
+  }
+  .hoja::before{
+    content:"";
+    position:absolute;
+    left:16px; top:0; bottom:0;
+    width:2px;
+    background: #c0392b55;
+  }
+  .encabezado{
+    font-size:1.5rem;
+    font-weight:bold;
+    margin:0 0 6px 0;
+  }
+  .tachado{
+    position:relative;
+    color: var(--tinta);
+    text-decoration: line-through;
+    text-decoration-color: #c0392b;
+    text-decoration-thickness: 4px;
+    text-decoration-style: wavy;
+    opacity:1;
+  }
+  .firma{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:14px;
+    margin-top:10px;
+  }
+  .firma-texto{
+    text-align:right;
+    font-style:italic;
+    font-size:1.2rem;
+  }
+
+  .perro-caja{
+    margin-top:22px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+  .perro-img{
+    width:150px;
+    border-radius:14px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.5);
+    border:4px solid var(--papel);
+    transform: rotate(2deg);
+  }
+  .pie-perro{
+    color:#f3e3b3;
+    font-size:.85rem;
+    opacity:.8;
+  }
+
+  .controles-audio{
+    margin-top:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+  }
+  .btn-audio{
+    background: var(--sello);
+    color:#f3e3b3;
+    border:none;
+    border-radius:999px;
+    padding:10px 20px;
+    font-size:1rem;
+    cursor:pointer;
+    box-shadow:0 6px 14px rgba(0,0,0,.4);
+    transition: transform .15s ease, background .2s ease;
+    font-family: inherit;
+  }
+  .btn-audio:hover{ transform: translateY(-2px); background:#c8493c; }
+  .btn-audio:active{ transform: translateY(0); }
+  .audio-msg{
+    color:#f3e3b3;
+    font-size:0.8rem;
+    text-align:center;
+    max-width:400px;
+    opacity:.8;
+  }
+</style>
+</head>
+<body>
+<div class="escenario">
+  <p class="titulo">✉️ tienes una carta</p>
+
+  <div class="sobre" id="sobre">
+    <div class="sobre-cuerpo"></div>
+    <div class="sobre-solapa"></div>
+    <div class="sello">R</div>
+  </div>
+  <p class="instr" id="instr">Toca el sobre para abrirlo</p>
+
+  <div class="carta-wrap" id="cartaWrap">
+    <div class="hoja">
+      <p class="encabezado">CHABO</p>
+      <p>
+        Lla me fui. Boi a<br>
+        cumplir mi dezeo<br>
+        de biajar y tener<br>
+        <span class="tachado">abnu</span> abenturaz<br>
+        algun dia savras<br>
+        de mi, y de mis<br>
+        grandes ecsitos.
+      </p>
+      <div class="firma">
+        <span class="firma-texto">Te kiere<br>Ramón</span>
+      </div>
+
+      <div class="perro-caja">
+        <img class="perro-img" src="perro.jpg" alt="perrito graduado">
+      </div>
+    </div>
+
+    <div class="controles-audio" id="controlesAudio" style="display:none;">
+      <button class="btn-audio" id="btnAudio">▶ Reproducir audio</button>
+    </div>
+    <p class="audio-msg" id="audioMsg" style="display:none;">Tu navegador bloqueó la reproducción automática. Toca el botón para escuchar el audio.</p>
+    <audio id="audioCarta" src="audio.mp3" preload="auto"></audio>
+  </div>
+</div>
+
+<script>
+  const sobre = document.getElementById('sobre');
+  const instr = document.getElementById('instr');
+  const cartaWrap = document.getElementById('cartaWrap');
+  const btnAudio = document.getElementById('btnAudio');
+  const audio = document.getElementById('audioCarta');
+  const controlesAudio = document.getElementById('controlesAudio');
+  const audioMsg = document.getElementById('audioMsg');
+
+  sobre.addEventListener('click', () => {
+    if(sobre.classList.contains('abierto')) return;
+    sobre.classList.add('abierto');
+    instr.style.display = 'none';
+    setTimeout(() => {
+      cartaWrap.classList.add('visible');
+      audio.play().then(() => {
+        btnAudio.textContent = '⏸ Pausar audio';
+      }).catch(() => {
+        controlesAudio.style.display = 'flex';
+        audioMsg.style.display = 'block';
+        btnAudio.textContent = '▶ Reproducir audio';
+      });
+    }, 350);
+  });
+
+  btnAudio.addEventListener('click', () => {
+    if(audio.paused){
+      audio.play();
+      btnAudio.textContent = '⏸ Pausar audio';
+    } else {
+      audio.pause();
+      btnAudio.textContent = '▶ Reproducir audio';
+    }
+  });
+
+  audio.addEventListener('ended', () => {
+    btnAudio.textContent = '▶ Reproducir audio';
+  });
+</script>
+</body>
+</html>
