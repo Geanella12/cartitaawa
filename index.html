@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carta de Ramón</title>
 <style>
   :root{
@@ -16,22 +17,20 @@
   *{box-sizing:border-box;}
   html,body{
     margin:0;
-    height:100%;
+    min-height:100%;
     background:radial-gradient(ellipse at 50% 20%, var(--cielo2), var(--cielo1) 70%);
     font-family: 'Segoe Print','Comic Sans MS', cursive, sans-serif;
     display:flex;
-    align-items:center;
+    align-items:flex-start;
     justify-content:center;
-    overflow:hidden;
   }
   .escenario{
-      position:relative;
-    width:100%;
-    max-width:900px;
-    padding:12px;
+    width:min(700px, 94vw);
+    margin:0 auto;
+    padding:24px 0 48px 0;
     display:flex;
     flex-direction:column;
-    align-items:stretch;
+    align-items:center;
     gap:18px;
   }
   .titulo{
@@ -45,10 +44,11 @@
 
   /* SOBRE */
   .sobre{
-   position:relative;
-    width:280px;
-    height:190px;
-    align-self:center;
+    position:relative;
+    width:min(280px, 80vw);
+    aspect-ratio: 280 / 190;
+    cursor:pointer;
+    transition:transform .3s ease;
   }
   .sobre:hover{ transform: translateY(-4px) scale(1.02); }
   .sobre-cuerpo{
@@ -61,7 +61,7 @@
   .sobre-solapa{
     position:absolute;
     top:0; left:0; right:0;
-    height:100px;
+    height:52%;
     background: linear-gradient(160deg, #e6b95c, #c98a34);
     clip-path: polygon(0 0, 100% 0, 50% 78%);
     transform-origin: top center;
@@ -71,14 +71,14 @@
   }
   .sello{
     position:absolute;
-    top:58px; left:50%;
-    width:46px; height:46px;
+    top:30%; left:50%;
+    width:16%; height:24%;
     background: radial-gradient(circle at 35% 30%, #d1594c, var(--sello) 70%);
     border-radius:50%;
     transform: translateX(-50%);
     box-shadow: 0 3px 6px rgba(0,0,0,.4);
     display:flex;align-items:center;justify-content:center;
-    color:#f3e3b3;font-weight:bold;font-size:0.85rem;
+    color:#f3e3b3;font-weight:bold;font-size:clamp(0.7rem, 3vw, 0.85rem);
     z-index:4;
     transition: opacity .3s ease;
   }
@@ -96,10 +96,9 @@
 
   /* CARTA */
   .carta-wrap{
-   display:none;
+    display:none;
     width:100%;
-    max-width:820px;
-    align-self:center;
+    animation: aparecer .7s ease forwards;
   }
   .carta-wrap.visible{ display:block; }
   @keyframes aparecer{
@@ -108,16 +107,17 @@
   }
 
   .hoja{
-     position:relative;
+    position:relative;
+    width:100%;
     background:
       repeating-linear-gradient(var(--papel), var(--papel) 27px, var(--papel-oscuro) 28px),
       var(--papel);
     border-radius:4px 18px 4px 18px / 18px 4px 18px 4px;
-    padding:44px 60px 40px 68px;
+    padding: clamp(24px,5vw,44px) clamp(20px,6vw,60px) clamp(24px,5vw,40px) clamp(30px,7vw,68px);
     box-shadow: 0 25px 45px var(--sombra);
     color: var(--tinta);
     line-height:1.9;
-    font-size:1.15rem;
+    font-size: clamp(1rem, 3.6vw, 1.15rem);
     transform: rotate(-1deg);
   }
   .hoja::before{
@@ -128,7 +128,7 @@
     background: #c0392b55;
   }
   .encabezado{
-    font-size:1.5rem;
+    font-size:clamp(1.2rem, 4.5vw, 1.5rem);
     font-weight:bold;
     margin:0 0 6px 0;
   }
@@ -151,7 +151,7 @@
   .firma-texto{
     text-align:right;
     font-style:italic;
-    font-size:1.2rem;
+    font-size:clamp(1rem, 3.8vw, 1.2rem);
   }
 
   .perro-caja{
@@ -162,7 +162,7 @@
     gap:10px;
   }
   .perro-img{
-    width:150px;
+    width:min(150px, 45vw);
     border-radius:14px;
     box-shadow: 0 10px 20px rgba(0,0,0,.5);
     border:4px solid var(--papel);
@@ -219,13 +219,9 @@
     <div class="hoja">
       <p class="encabezado">CHABO</p>
       <p>
-        Lla me fui. Boi a<br>
-        cumplir mi dezeo<br>
-        de biajar y tener<br>
-        <span class="tachado">abnu</span> abenturaz<br>
-        algun dia savras<br>
-        de mi, y de mis<br>
-        grandes ecsitos.
+        Lla me fui. Boi a cumplir mi dezeo de biajar y tener
+        <span class="tachado">abnu</span> abenturaz. Algun dia savras
+        de mi, y de mis grandes ecsitos.
       </p>
       <div class="firma">
         <span class="firma-texto">Te kiere<br>Ramón</span>
